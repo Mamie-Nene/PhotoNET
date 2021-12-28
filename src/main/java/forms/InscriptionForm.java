@@ -28,7 +28,7 @@ public class InscriptionForm {
 		this.erreurs = new HashMap<>();
 	}
 	
-	public boolean ajouter() {
+	public boolean inscrire() {
 		String nom = getParameter(CHAMP_NOM);
 		String prenom = getParameter(CHAMP_PRENOM);
 		String login = getParameter(CHAMP_LOGIN);
