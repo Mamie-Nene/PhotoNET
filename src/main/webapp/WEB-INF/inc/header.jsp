@@ -11,15 +11,16 @@
 		<div id="entete"> Gestion des utilisateurs </div>
 		<div id="menu">
 			<ul>
-				<li> <a href="<c:url value='/login'/>"> Accueil </a> </li>
+				<li> <a href="<c:url value='/accueil'/>"> Accueil </a> </li>
 				<c:choose>
 					<c:when test="${!empty sessionScope.utilisateur }">
-						<li> <a href="<c:url value='/list'/>"> Lister </a> </li>
-						<li> <a href="<c:url value='/addUser'/>"> Ajouter </a> </li>
+						<li> <a href="<c:url value='/list'/>"> Gerer Utilisateur </a> </li>
+						<li> <a href="<c:url value='/list'/>"> Gerer Photo </a> </li>
 						<li> <a href="<c:url value='/logout'/>"> Déconnexion </a> </li>
 					</c:when>
 					<c:otherwise>
 						<li> <a href="<c:url value='/login'/>"> Connexion </a> </li>
+						<li> <a href="<c:url value='/inscription'/>"> Inscription </a> </li>
 					</c:otherwise>
 				</c:choose>
 			</ul>

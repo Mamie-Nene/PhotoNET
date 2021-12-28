@@ -15,7 +15,7 @@ import dao.UsersDao;
 public class Accueil extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-	private static final String VUE_LIST_USERS = "/WEB-INF/accueil.jsp";
+	private static final String VUE_ACCUEIL_ADMIN = "/WEB-INF/accueilAdmin.jsp";
     
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
@@ -33,7 +33,7 @@ public class Accueil extends HttpServlet {
 		session.setAttribute("status", status);
 		
 		request.setAttribute("users",UsersDao.lister());
-		getServletContext().getRequestDispatcher(VUE_LIST_USERS).forward(request, response);
+		getServletContext().getRequestDispatcher(VUE_ACCUEIL_ADMIN).forward(request, response);
 	}
 	
 

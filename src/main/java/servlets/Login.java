@@ -6,11 +6,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import forms.LoginForm;
 
 
-@WebServlet({"","/login","/logout"})
+@WebServlet("/login")
 public class Login extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
@@ -19,15 +20,15 @@ public class Login extends HttpServlet
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		switch(request.getServletPath()) 
+		HttpSession session = request.getSession();
+		Object form = session.getAttribute("form");
+		if(form != null) 
 		{
-		case "/login" : case "":
-			getServletContext().getRequestDispatcher(VUE_LOGIN).forward(request, response);
-			break;
-			default:
-				request.getSession().invalidate();
-				response.sendRedirect(request.getContextPath());
+			session.removeAttribute("form");
+			
 		}
+		request.setAttribute("form", form);
+		getServletContext().getRequestDispatcher(VUE_LOGIN).forward(request, response);
 		
 	}
 
