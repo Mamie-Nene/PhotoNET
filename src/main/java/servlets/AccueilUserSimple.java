@@ -9,13 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.UsersDao;
 
-@WebServlet("/accueil1")
-public class Accueil extends HttpServlet {
+@WebServlet("/accueilUser")
+public class AccueilUserSimple extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-	private static final String VUE_ACCUEIL = "/WEB-INF/accueil.jsp";
+	private static final String VUE_ACCUEIL_USER = "/WEB-INF/accueilUser.jsp";
     
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
@@ -32,8 +31,8 @@ public class Accueil extends HttpServlet {
 		
 		session.setAttribute("status", status);
 		
-		request.setAttribute("users",UsersDao.lister());
-		getServletContext().getRequestDispatcher(VUE_ACCUEIL).forward(request, response);
+		
+		getServletContext().getRequestDispatcher(VUE_ACCUEIL_USER).forward(request, response);
 	}
 	
 

@@ -27,7 +27,7 @@ public class UpdateUser extends HttpServlet
 		String id = request.getParameter("id");
 		if(id != null && id.matches("[0-9]+") ) 
 		{
-			Utilisateur utilisateur = UsersDao.getUser(Integer.parseInt(id));
+			Utilisateur utilisateur = UsersDao.getById(Integer.parseInt(id));
 			
 			if(utilisateur !=null) 
 			{

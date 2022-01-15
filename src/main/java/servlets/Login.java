@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import beans.Utilisateur;
+import dao.UsersDao;
 import forms.LoginForm;
 
 
@@ -36,10 +38,22 @@ public class Login extends HttpServlet
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{ // TODO Auto-generated method stub
 		LoginForm form = new LoginForm(request);
+		HttpSession session = request.getSession();
+	
+		String login = request.getParameter("login");
 		
+		Utilisateur utilisateur= UsersDao.getByLogin(login);
+	
+		session.setAttribute("utilisateur",utilisateur); 
+		String role = utilisateur.getUserRole();
 		if(form.authentifier()) 
 		{
-			response.sendRedirect(request.getContextPath()+"/list");
+			if(("admin".equals(login))||role.equals("administrateur")) {
+				response.sendRedirect(request.getContextPath()+"/accueilAdmin");
+			}
+			else {
+				response.sendRedirect(request.getContextPath()+"/accueilUser");
+			}
 		
 		}
 		else 
