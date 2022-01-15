@@ -13,7 +13,8 @@ import beans.Utilisateur;
 
 public class UsersDao 
 {
-	public static Connection db =DatabaseConnection.getConnection();	
+	public static Connection db = DatabaseConnection.getConnection();	
+	private static ArrayList<Utilisateur> utilisateurs = new ArrayList<Utilisateur>() ;
 	
 	public static boolean ajouter(Utilisateur utilisateur )
 	{ 
@@ -25,7 +26,7 @@ public class UsersDao
 			stmt.setString(2,utilisateur.getPrenom());
 			stmt.setString(3,utilisateur.getLogin());
 			stmt.setString(4,utilisateur.getPassword());
-			stmt.setInt(5,utilisateur.getUserRole()); 
+			stmt.setString(5,utilisateur.getUserRole()); 
 		    stmt.executeUpdate();
 		    stmt.close();
 			return true;
@@ -46,7 +47,7 @@ public class UsersDao
 			ResultSet result = stmt.executeQuery();
 			while (result.next()) 
 			{
-				Utilisateur utilisateur = new Utilisateur(result.getInt("id"),result.getString("nom"),result.getString("prenom"),result.getString("username"),result.getString("pwd"), result.getInt("userRole"));
+				Utilisateur utilisateur = new Utilisateur(result.getInt("id"),result.getString("nom"),result.getString("prenom"),result.getString("username"),result.getString("pwd"), result.getString("userRole"));
 				List_users.add(utilisateur);
 			}
 		
@@ -54,7 +55,9 @@ public class UsersDao
 		catch(SQLException e){
 			e.printStackTrace();
 		}
-		return List_users;
+		utilisateurs = (ArrayList<Utilisateur>)List_users.clone();
+		
+		return utilisateurs;
 	}
 	
 	public static boolean modifier(Utilisateur utilisateur )
@@ -63,12 +66,12 @@ public class UsersDao
 		{
 			
 		
-		PreparedStatement stmt= db.prepareStatement("UPDATE Utilisateur SET nom=?, prenom=?, username=?, pwd=?, userRole=? where id=? ");
+		PreparedStatement stmt= db.prepareStatement("UPDATE User SET nom=?, prenom=?, username=?, pwd=?, userRole=? where id=? ");
 		stmt.setString(1,utilisateur.getNom());
 		stmt.setString(2,utilisateur.getPrenom());
 		stmt.setString(3,utilisateur.getLogin());
 		stmt.setString(4,utilisateur.getPassword());
-		stmt.setInt(5,utilisateur.getUserRole());
+		stmt.setString(5,utilisateur.getUserRole());
 		stmt.setInt(6,utilisateur.getId());
 		
 		stmt.executeUpdate();
@@ -81,58 +84,52 @@ public class UsersDao
 		
 		return true;
 	}
-	public static Utilisateur getUser(int id) {
-		Utilisateur utilisateur = new Utilisateur();
-		
-		try
+	public static Utilisateur getById(int id) {
+		for(Utilisateur utilisateur: utilisateurs )
 		{
-			 
-		PreparedStatement stmt= db.prepareStatement("Select * from User where id=? ");
-		stmt.setInt(1,id);
-		ResultSet result = stmt.executeQuery(); 
-		if(result.next()) {
-			utilisateur.setId(result.getInt("id"));
-			utilisateur.setNom(result.getString("nom"));
-			utilisateur.setPrenom(result.getString("prenom"));
-			utilisateur.setLogin(result.getString("username"));
-			utilisateur.setPassword(result.getString("pwd"));
-			utilisateur.setPassword(result.getString("userRole"));
-
+			if(utilisateur.getId()==id) 
+			{
+				return utilisateur;
+			}
 		}
-		stmt.close();
-		} 
-		catch(SQLException e){
-			e.printStackTrace();
-		}
-		return utilisateur;
-		
+		return null;
 	}
-	public static Utilisateur get(String login) {
+	
+	public static Utilisateur getByLogin(String login) {
+		
 		Utilisateur utilisateur = new Utilisateur();
 		
 		try
 		{
 			 
-		PreparedStatement stmt= db.prepareStatement("Select * from User where id=? ");
+		PreparedStatement stmt= db.prepareStatement("Select * from User where username=? ");
 		stmt.setString(1,login);
 		ResultSet result = stmt.executeQuery(); 
 		if(result.next()) {
+			 
 			utilisateur.setId(result.getInt("id"));
+		
 			utilisateur.setNom(result.getString("nom"));
 			utilisateur.setPrenom(result.getString("prenom"));
 			utilisateur.setLogin(result.getString("username"));
 			utilisateur.setPassword(result.getString("pwd"));
-			utilisateur.setUserRole(result.getInt("userRole"));
+			utilisateur.setUserRole(result.getString("userRole"));
 
 		}
 		stmt.close();
+		
+		
+		return utilisateur;
 		} 
 		catch(SQLException e){
 			e.printStackTrace();
+
+			return utilisateur;
 		}
-		return utilisateur;
+		
 		
 	}
+	
 	public static boolean supprimer(int id) {
 		
 		 
