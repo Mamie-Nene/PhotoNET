@@ -3,12 +3,12 @@ package beans;
 public class Utilisateur 
 {
 	
-	private int id, userRole;
-	private String nom, prenom, login, password;
+	private int id ;
+	private String nom, prenom, login, password,userRole;
 	public Utilisateur()
 	{//obligatoire 
 	}
-	public Utilisateur(int id, String nom, String prenom, String login, String password, int userRole) 
+	public Utilisateur(int id, String nom, String prenom, String login, String password, String userRole) 
 	{
 		this.id = id;
 		this.nom = nom;
@@ -17,7 +17,7 @@ public class Utilisateur
 		this.password = password;
 		this.userRole = userRole;
 	}
-	public Utilisateur(String nom, String prenom, String login, String password, int userRole ) 
+	public Utilisateur(String nom, String prenom, String login, String password, String userRole ) 
 	{
 		this.nom = nom;
 		this.prenom = prenom;
@@ -55,14 +55,14 @@ public class Utilisateur
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public int getUserRole() {
+	public String getUserRole() {
 		return userRole;
 	}
-	public void setUserRole(int userRole) {
+	public void setUserRole(String userRole) {
 		this.userRole = userRole;
 	}
 	 @Override
 	 public String toString() {
-		 return " [id= "+id +", nom: " +nom+", prenom: " +prenom+", login: "+login +", mot de passe: " +password +"]";
+		 return " [id= "+id +", nom: " +nom+", prenom: " +prenom+", login: "+login +", mot de passe: " +password +"userRole:" +userRole+"]";
 	 }
 }
