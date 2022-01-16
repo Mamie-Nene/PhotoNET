@@ -38,11 +38,11 @@ public class UpdateUserForm {
 			String prenom = getParameter(CHAMP_PRENOM);
 			String login = getParameter(CHAMP_LOGIN);
 			String password = getParameter(CHAMP_PASSWORD);
-			String userRole= getParameter(CHAMP_USERROLE);
+			String userRole = getParameter(CHAMP_USERROLE);
 			validerChamp(CHAMP_NOM, CHAMP_PRENOM, CHAMP_LOGIN, CHAMP_PASSWORD, CHAMP_USERROLE);
 			if(erreurs.isEmpty()) 
 			{
-				Utilisateur utilisateur= new Utilisateur(Integer.parseInt(id), nom, prenom, login, password,Integer.parseInt(userRole));
+				Utilisateur utilisateur= new Utilisateur(Integer.parseInt(id), nom, prenom, login, password,userRole);
 				
 				status = UsersDao.modifier(utilisateur);
 				if(status) 
@@ -77,6 +77,11 @@ public class UpdateUserForm {
 			if(getParameter(champ)==null) 
 			{
 				erreurs.put(champ, "Vous devez remplir ce champ");
+			}
+			else if(champ.equals(CHAMP_USERROLE)) {
+				if(!("administrateur".equals(request.getParameter(champ))) && !("utilisateur simple".equals(request.getParameter(champ)))) {
+					erreurs.put(champ, "valeur doit etre administrateur ou utilisateur simple");
+				}
 			}
 		}
 	}

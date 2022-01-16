@@ -2,18 +2,74 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="inc/header.jsp" />
-
-<section class="wrapper">
-	<h2 class="text-center"> Bienvenue à PhotoNET221 </h2>
-	Il n'y a pas de photos pour le moment
-    <a class="lien" href="index.php?action=pagination"> <button type="button"> Suivant </button></a>        
-    <h2>Catégories</h2>
-    <c:choose>
-		<c:when  test="${empty requestScope.users }"> Il n'y a pas d'album pour le moment.
-		</c:when>
-		<c:when  test="${!empty requestScope.users }">
-		</c:when>
-	</c:choose>
-</section>
-            
+<div id="corps">
+		<c:if test="${ status }">
+			<div id="statusMessageBox" class="alert alert-success">
+				<span id="control" onclick="hideMessageBox()" title="fermer"> x</span>
+				${ param.message }
+			</div>
+		</c:if>
+			
+			<c:choose>
+				<c:when  test="${empty requestScope.users }"> La liste des utilisateurs est vide </c:when>
+				<c:otherwise>
+                	
+			<div class="panel-header panel-header-sm">
+      		</div>
+      <div class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title"> Liste des utilisateurs</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class=" text-primary">
+                    <tr>
+                      <th>
+                        Nom
+                      </th>
+                      <th>
+                        Prenom
+                      </th>
+                      <th>
+                        Login
+                      </th>
+                      <th>
+                        Role
+                      </th>
+                      <th class="text-right" colspan="2">
+                        Actions
+                      </th>
+                      </tr>
+                    </thead>
+						 <tbody>
+							<c:forEach items="${requestScope.users }" var= "utilisateur">
+							<tr>
+								
+								<td><c:out value='${utilisateur.nom}'/> </td>
+								<td><c:out value='${utilisateur.prenom}'/> </td>
+								<td><c:out value='${utilisateur.login}'/> </td>
+								<td><c:out value='${utilisateur.userRole}'/> </td>
+								<td class="text-right"><a class="btn btn-theme" href="<c:url value='/updateUser?id=${utilisateur.id}'/>"> Modifier </a> 
+								 <a class="btn btn-theme04" href="<c:url value='/deleteUser?id=${utilisateur.id}'/>  "> Supprimer </a> </td>
+							</tr>
+							
+                     
+							</c:forEach>
+						
+					 </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+      </div>
+				</c:otherwise>
+			 </c:choose >	
+		</div>
+		 
 <c:import url="inc/footer.jsp" />	

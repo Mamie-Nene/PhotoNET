@@ -38,13 +38,13 @@ public class Inscription extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("form",form);
 	
-		if(form.inscrire())
+		if(form.ajouter())
 		{
 			String url = request.getContextPath() +"/list?message=" + form.getStatusMessage();
 			response.sendRedirect(url);
 		}
 		else {
-			response.sendRedirect(request.getContextPath() + "/inscription");
+			response.sendRedirect(request.getContextPath() + "/addUser");
 		}
 	}
 

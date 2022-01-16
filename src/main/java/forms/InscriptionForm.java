@@ -28,12 +28,12 @@ public class InscriptionForm {
 		this.erreurs = new HashMap<>();
 	}
 	
-	public boolean inscrire() {
+	public boolean ajouter() {
 		String nom = getParameter(CHAMP_NOM);
 		String prenom = getParameter(CHAMP_PRENOM);
 		String login = getParameter(CHAMP_LOGIN);
 		String password = getParameter(CHAMP_PASSWORD);
-		int userRole = 1;
+		String userRole = "utilisateur simple" ;
 		
 		utilisateur = new Utilisateur(nom, prenom, login, password, userRole);
 		

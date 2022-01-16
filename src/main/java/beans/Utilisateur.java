@@ -63,6 +63,6 @@ public class Utilisateur
 	}
 	 @Override
 	 public String toString() {
-		 return " [id= "+id +", nom: " +nom+", prenom: " +prenom+", login: "+login +", mot de passe: " +password +"userRole:" +userRole+"]";
+		 return " [id= "+id +", nom: " +nom+", prenom: " +prenom+", login: "+login +", mot de passe: " +password +"]";
 	 }
 }

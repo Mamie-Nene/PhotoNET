@@ -15,7 +15,6 @@ public class UsersDao
 {
 	public static Connection db = DatabaseConnection.getConnection();	
 	private static ArrayList<Utilisateur> utilisateurs = new ArrayList<Utilisateur>() ;
-	
 	public static boolean ajouter(Utilisateur utilisateur )
 	{ 
 		try
@@ -55,9 +54,9 @@ public class UsersDao
 		catch(SQLException e){
 			e.printStackTrace();
 		}
-		utilisateurs = (ArrayList<Utilisateur>)List_users.clone();
+		 utilisateurs = (ArrayList<Utilisateur>) List_users.clone();
 		
-		return utilisateurs;
+		return List_users;
 	}
 	
 	public static boolean modifier(Utilisateur utilisateur )
@@ -81,55 +80,30 @@ public class UsersDao
 			e.printStackTrace();
 			return false;
 		}
-		
 		return true;
-	}
-	public static Utilisateur getById(int id) {
-		for(Utilisateur utilisateur: utilisateurs )
+	 }
+
+	public static Utilisateur getUser(int id) {
+		for(Utilisateur utilisateur : utilisateurs) 
 		{
-			if(utilisateur.getId()==id) 
+			if(utilisateur.getId() == id)
 			{
 				return utilisateur;
 			}
 		}
 		return null;
 	}
-	
-	public static Utilisateur getByLogin(String login) {
-		
-		Utilisateur utilisateur = new Utilisateur();
-		
-		try
+	public static Utilisateur get(String login) {
+		for(Utilisateur utilisateur : utilisateurs) 
 		{
-			 
-		PreparedStatement stmt= db.prepareStatement("Select * from User where username=? ");
-		stmt.setString(1,login);
-		ResultSet result = stmt.executeQuery(); 
-		if(result.next()) {
-			 
-			utilisateur.setId(result.getInt("id"));
-		
-			utilisateur.setNom(result.getString("nom"));
-			utilisateur.setPrenom(result.getString("prenom"));
-			utilisateur.setLogin(result.getString("username"));
-			utilisateur.setPassword(result.getString("pwd"));
-			utilisateur.setUserRole(result.getString("userRole"));
-
+			if(utilisateur.getLogin().equals(login))
+			{
+				return utilisateur;
+			}
 		}
-		stmt.close();
-		
-		
-		return utilisateur;
-		} 
-		catch(SQLException e){
-			e.printStackTrace();
-
-			return utilisateur;
-		}
-		
-		
+		return null;
 	}
-	
+
 	public static boolean supprimer(int id) {
 		
 		 

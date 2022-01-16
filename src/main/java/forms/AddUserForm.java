@@ -36,9 +36,9 @@ public class AddUserForm
 		String prenom = getParameter(CHAMP_PRENOM);
 		String login = getParameter(CHAMP_LOGIN);
 		String password = getParameter(CHAMP_PASSWORD);
-		String userRole = getParameter(CHAMP_USERROLE);
+		String [] userRole = request.getParameterValues(CHAMP_USERROLE);
 		
-		utilisateur = new Utilisateur(nom, prenom, login, password, Integer.parseInt(userRole));
+		utilisateur = new Utilisateur(nom, prenom, login, password, userRole[0]);
 		
 		validerChamp(CHAMP_NOM, CHAMP_PRENOM, CHAMP_LOGIN, CHAMP_PASSWORD, CHAMP_USERROLE);
 		validerPasswords();
@@ -73,10 +73,12 @@ public class AddUserForm
 	{
 		for (String champ: CHAMP) 
 		{
+			
 			if(getParameter(champ)==null) 
 			{
 				erreurs.put(champ, "Vous devez remplir ce champ");
 			}
+			
 		}
 	}
 	private void validerPasswords() {

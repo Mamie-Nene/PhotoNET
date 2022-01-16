@@ -29,11 +29,11 @@ public class LoginForm {
 		
 		if("admin".equals(login) && "admin".equals(password)) 
 		{
-			utilisateur = new Utilisateur ("ADMIN","ADMIN", "ADMIN", "ADMIN",2);
+			utilisateur = new Utilisateur (2,"ADMIN","ADMIN", "ADMIN", "ADMIN","administrateur");
 		}
 		else 
 		{
-			utilisateur= UsersDao.get(login);
+			utilisateur = UsersDao.get(login);
 			if(utilisateur != null && !utilisateur.getPassword().equals(password)) 
 			{
 				utilisateur = null;

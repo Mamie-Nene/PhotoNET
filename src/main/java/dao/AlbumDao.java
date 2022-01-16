@@ -7,23 +7,25 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import beans.Album;
+import beans.Utilisateur;
 import database.DatabaseConnection;
 
 public class AlbumDao {
-	public static Connection db = DatabaseConnection.getConnection();
-	public static Album album;
-	public static boolean ajouter(Album album )
-	{ 
+	private static ArrayList<Album> albums = new ArrayList<Album>() ;
+	public static Connection conn = DatabaseConnection.getConnection();
+	
+	public static boolean AjouterAlbum(Album album,Utilisateur utilisateur) 
+	{
+		
 		try
 		{
-			PreparedStatement stmt= db.prepareStatement("INSERT INTO Album (nomAlbum, dateCreation, proprioAlbum, detail, portee, categorie, autorisationId) VALUES (?,?,?,?,?,?,?)");
+			
+			PreparedStatement stmt= conn.prepareStatement("INSERT INTO album (nomAlbum, detail, portee,proprioAlbum) VALUES (?,?,?,?)");
 			stmt.setString(1,album.getNomAlbum());
-			stmt.setString(2,album.getDateCreation());
-			stmt.setString(3,album.getProprioAlbum());
-			stmt.setString(4,album.getDetail());
-			stmt.setString(5,album.getPortee()); 
-			stmt.setInt(6,album.getCategorie()); 
-			stmt.setInt(7,album.getAutorisationId()); 
+			stmt.setString(2,album.getDetail());
+			stmt.setString(3, album.getPortee());	
+			stmt.setInt(4, utilisateur.getId());
+			
 		    stmt.executeUpdate();
 		    stmt.close();
 			return true;
@@ -32,48 +34,47 @@ public class AlbumDao {
 			e.printStackTrace();
 			return false;
 		}
-		
 	}
-	
-	
-	public static boolean modifier(Album album )
+	public static ArrayList<Album> listerAlbum() 
 	{
+		ArrayList<Album> List_album = new ArrayList<Album>() ;
 		try
 		{
-			PreparedStatement stmt= db.prepareStatement("UPDATE Album SET nomAlbum=?,dateCreation=?, proprioAlbum=?, detail=?, portee=?, categorie=?, autorisationId=? where id=? ");
-			stmt.setString(1,album.getNomAlbum());
-			stmt.setString(2,album.getDateCreation());
-			stmt.setString(3,album.getProprioAlbum());
-			stmt.setString(4,album.getDetail());
-			stmt.setString(5,album.getPortee()); 
-			stmt.setInt(6,album.getCategorie()); 
-			stmt.setInt(7,album.getAutorisationId()); 
-			stmt.setInt(8,album.getId());
 			
-			
-			stmt.executeUpdate();
-			stmt.close();
-		} 
+			PreparedStatement stmt= conn.prepareStatement("SELECT * FROM album");
+			ResultSet result = stmt.executeQuery();
+			while (result.next()) 
+			{
+				Album album = new Album(result.getInt("id"),result.getString("nomAlbum"),result.getString("detail"),result.getString("portee"));
+				List_album.add(album);
+			}
+		
+		}
 		catch(SQLException e){
 			e.printStackTrace();
-			return false;
 		}
+		 albums = (ArrayList<Album>) List_album.clone();
 		
-		return true;
+		return List_album;
 	}
-	public static boolean supprimer(int id) {
-		try
-		{	 
-			PreparedStatement stmt= db.prepareStatement("delete from Album where id=? ");
-			stmt.setInt(1,id);
-			stmt.executeUpdate(); 
-			stmt.close();
-			return true;
-		} 
-		catch(SQLException e){
-			e.printStackTrace();
-			return false;
+	public static Album getAlbumbyName(String nom) {
+		for(Album album : albums) 
+		{
+			if(album.getNomAlbum().equals(nom))
+			{
+				return album;
+			}
 		}
-		
+		return null;
+	}
+	public static Album getAlbumById(int id) {
+		for(Album album : albums) 
+		{
+			if(album.getId() == id)
+			{
+				return album;
+			}
+		}
+		return null;
 	}
 }

@@ -69,8 +69,5 @@ public class Image {
 	public void setMotscles(String motscles) {
 		this.motscles = motscles;
 	}
-	@Override
-	 public String toString() {
-		 return " [id= "+id +", hauteur: " +hauteur+", largeur: " +largeur+", description: "+description +", motscles: " +motscles + ",img:"+img+"]";
-	 }
+
 }
