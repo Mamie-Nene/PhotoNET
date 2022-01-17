@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.ImgDao;
 import dao.UsersDao;
 
 @WebServlet("/accueilAdmin")
@@ -33,6 +34,7 @@ public class AccueilAdmin extends HttpServlet {
 		session.setAttribute("status", status);
 		
 		request.setAttribute("users",UsersDao.lister());
+		request.setAttribute("images",ImgDao.ListAllImg());
 		getServletContext().getRequestDispatcher(VUE_ACCUEIL_ADMIN).forward(request, response);
 	}
 	

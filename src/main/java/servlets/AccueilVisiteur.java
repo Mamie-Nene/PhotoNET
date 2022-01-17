@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.AlbumDao;
 import dao.CategorieDao;
+import dao.ImgDao;
 
 @WebServlet({"","/accueil","/logout"})
 public class AccueilVisiteur extends HttpServlet {
@@ -20,6 +22,8 @@ public class AccueilVisiteur extends HttpServlet {
 		switch(request.getServletPath()) 
 		{
 		case "/accueil" : case "":
+			request.setAttribute("albums",AlbumDao.listerAlbum());
+			request.setAttribute("images",ImgDao.ListAllImg());
 			request.setAttribute("categories",CategorieDao.lister());
 			getServletContext().getRequestDispatcher(VUE_ACCUEIL).forward(request, response);
 			break;
