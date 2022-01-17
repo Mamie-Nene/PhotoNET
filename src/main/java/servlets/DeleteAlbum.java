@@ -7,13 +7,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.UsersDao;
+import dao.AlbumDao;
 
 /**
  * Servlet implementation class DeleteUser
  */
-@WebServlet("/deleteUser")
-public class DeleteUser extends HttpServlet {
+@WebServlet("/deleteAlbum")
+public class DeleteAlbum extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -24,9 +24,9 @@ public class DeleteUser extends HttpServlet {
 		String id= request.getParameter("id");
 		if(id != null && id.matches("[0-9]+") ) 
 		{
-			UsersDao.supprimer(Integer.parseInt(id));
+			AlbumDao.supprimer(Integer.parseInt(id));
 		}
-		response.sendRedirect(request.getContextPath()+"/gererUser");
+		response.sendRedirect(request.getContextPath()+"/Albums");
 	}
 
 }

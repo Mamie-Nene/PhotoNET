@@ -41,7 +41,7 @@ public class AddUser extends HttpServlet
 	
 		if(form.ajouter())
 		{
-			String url = request.getContextPath() +"/list?message=" + form.getStatusMessage();
+			String url = request.getContextPath() +"/gererUser?message=" + form.getStatusMessage();
 			response.sendRedirect(url);
 		}
 		else {

@@ -27,16 +27,17 @@ public class UpdateUser extends HttpServlet
 		String id = request.getParameter("id");
 		if(id != null && id.matches("[0-9]+") ) 
 		{
-			Utilisateur utilisateur = UsersDao.getUser(Integer.parseInt(id));
+			Utilisateur utilisateur = UsersDao.getById(Integer.parseInt(id));
 			
 			if(utilisateur !=null) 
 			{
-				
+				//request.setAttribute("APP_URL", "request.getContextPath");
 				//get retourne l'utilisateur dont l'id est donné en parametre
 				
 				request.setAttribute("utilisateur", utilisateur);
 				getServletContext().getRequestDispatcher(VUE_UPDATE_USERS).forward(request, response);
 			}
+			getServletContext().getRequestDispatcher(VUE_UPDATE_USERS).forward(request, response);
 		}
 	}
 
@@ -50,7 +51,7 @@ public class UpdateUser extends HttpServlet
 	
 		if(form.modifier())
 		{
-			String url = request.getContextPath() +"/list?message=" + form.getStatusMessage();
+			String url = request.getContextPath() +"/gererUser?message=" + form.getStatusMessage();
 			response.sendRedirect(url);
 		}
 		else {

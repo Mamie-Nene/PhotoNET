@@ -48,6 +48,7 @@ public class AddAlbum extends HttpServlet {
 		session.setAttribute("Albumform",Albumform);
 		
 		if(Albumform.AddAlbum())
+			
 		{
 			String url = request.getContextPath() +"/Albums?message=" + Albumform.getStatusMessageAlbum();
 			response.sendRedirect(url);

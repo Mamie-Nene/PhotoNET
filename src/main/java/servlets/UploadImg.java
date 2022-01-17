@@ -67,7 +67,7 @@ public class UploadImg extends HttpServlet {
 		
 		if(Imgform.upload())
 		{
-			String url = request.getContextPath() +"/list?message=" + Imgform.getStatusMessagePhoto();
+			String url = request.getContextPath() +"/accueilAdmin?message=" + Imgform.getStatusMessagePhoto();
 			response.sendRedirect(url);
 		}
 		else 
