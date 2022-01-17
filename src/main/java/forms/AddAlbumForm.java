@@ -13,6 +13,7 @@ public class AddAlbumForm {
 	private static final String CHAMP_DETAIL = "detail";
 	private static final String CHAMP_NOMALBUM = "nomAlbum";
 	private static final String CHAMP_PORTEE = "portee";
+	private static final String CHAMP_CATEGORIE = "categorie";
 	
 
 	private boolean statusAlbum;
@@ -31,15 +32,16 @@ public class AddAlbumForm {
 		    String nomalbum = request.getParameter(CHAMP_NOMALBUM);
 		    String detail = request.getParameter(CHAMP_DETAIL);
 		    String portee = request.getParameter(CHAMP_PORTEE);
+		    String categorie = request.getParameter(CHAMP_CATEGORIE);
 		    
 		    String login = request.getParameter("loginuser");
-		    user = UsersDao.get(login);
-		    album = new Album(nomalbum,detail,portee);
+		    user = UsersDao.getByLogin(login);
+		    album = new Album(nomalbum,detail,portee,Integer.parseInt(categorie));
 		    
 		    statusAlbum = AlbumDao.AjouterAlbum(album, user);
 		    if(statusAlbum) 
 			{
-				statusMessageAlbum = "Image enregistrée avec succès";
+				statusMessageAlbum = "Image enregistrï¿½e avec succï¿½s";
 				
 				return true;
 			}
