@@ -38,6 +38,14 @@
                       </div>
                     
                   </div>
+                  <div class="row-md-6 ">
+                    
+                      <div class="form-group">
+                        <label for="categorie">Categorie:</label>
+                        <input type="text" class="form-control" name="categorie" value="${ album.categorie }">
+                      </div>
+                    
+                  </div>
                    <div class="row">
                     <div class="col-md-6 px-1">
                       <div class="form-group">

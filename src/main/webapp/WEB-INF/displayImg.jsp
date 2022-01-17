@@ -8,13 +8,23 @@
         <div class="row">
           <div class="col-md-12">
             <div class="card">
-            
-              
               <c:choose>
 				<c:when test="${empty requestScope.images}"> 
 				<div class="card-header">
                 		
-             	     <p class="category">Cet album est vide ... </p> 
+             	     <p class="category">Cet album est vide ... </p>
+             	   
+             	     <div class="font-icon-list col-lg-4 col-md-6 col-sm-8 col-xs-6 col-xs-6">
+                    <div class="font-icon-detail">
+                      <a href="<c:url value='/uploadImg?nomalbum=${album.nomAlbum}'/>"><i class="now-ui-icons ui-1_simple-add"> </i></a> 
+                    	<p class="category">Ajoutez ici une nouvelle photo ... </p>
+                    </div>
+                  </div>
+             	     <a class="btn btn-theme04" href="<c:url value='/deleteAlbum?id=${album.id}'/>  "> Supprimer l'album </a> 
+             	     
+                    
+                  </div>
+             	     
               </div>
               </c:when>  
                
@@ -37,6 +47,7 @@
                       <a href="<c:url value='/uploadImg?nomalbum=${album.nomAlbum}'/>"><i class="now-ui-icons ui-1_simple-add"> </i></a> 
                     	<p class="category">Ajoutez ici une nouvelle photo ... </p>
                     </div>
+                     <a class="btn btn-theme04" href="<c:url value='/deleteAlbum?id=${album.id}'/>  "> Supprimer l'album </a> 
                   </div>
                  </div>
                 </div>

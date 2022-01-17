@@ -10,7 +10,7 @@
             <div class="card">
             <h4 class="text-center">Bienvenue à PhotoNET221 </h4>
             <c:choose>
-				<c:when test="${empty requestScope.photo }"> 
+				<c:when test="${empty requestScope.images }"> 
 				<div class="card-header">
                 		
              	     <p class="category">Il n'y a pas de photos pour le moment ... </p> 
@@ -19,27 +19,22 @@
                   
               <c:otherwise>
               <div class="card-header">
-                <h5 class="title">Fil d'actualités </h5>
-              </div>
               <div class="card-body all-icons">
                 <div class="row">
-                 
-                  <c:forEach items="${requestScope.albums }" var= "album">
+    
+                  <c:forEach items="${requestScope.images }" var= "image">
+                  	
                   <div class="font-icon-list col-lg-4 col-md-6 col-sm-8 col-xs-6 col-xs-6">
                     <div class="font-icon-detail">
                     	
-                       
-                       <a href="<c:url value='/displayImg?idalbum=${album.id}'/>"><i class="now-ui-icons design_image"> </i></a> 
-                       <p class="category"><c:out value='${album.nomAlbum}'/></p>
+                       <img src="<c:out value="data:;base64,${image.img}"/>"/>
+                       <p class="category"><c:out value='${image.titre}'/></p>
                      
                     </div>
                   </div>
+                 
                   </c:forEach>
-                  <div class="font-icon-list col-lg-4 col-md-6 col-sm-8 col-xs-6 col-xs-6">
-                    <div class="font-icon-detail">
-                      
-                    </div>
-                  </div>
+                 
                  </div>
                 </div>
                </c:otherwise>
