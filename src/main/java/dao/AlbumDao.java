@@ -20,11 +20,12 @@ public class AlbumDao {
 		try
 		{
 			
-			PreparedStatement stmt= conn.prepareStatement("INSERT INTO album (nomAlbum, detail, portee,proprioAlbum) VALUES (?,?,?,?)");
+			PreparedStatement stmt= conn.prepareStatement("INSERT INTO album (nomAlbum, detail, portee,proprioAlbum,categorie) VALUES (?,?,?,?,?)");
 			stmt.setString(1,album.getNomAlbum());
 			stmt.setString(2,album.getDetail());
 			stmt.setString(3, album.getPortee());	
 			stmt.setInt(4, utilisateur.getId());
+			stmt.setInt(5, album.getCategorie());
 			
 		    stmt.executeUpdate();
 		    stmt.close();
@@ -45,7 +46,7 @@ public class AlbumDao {
 			ResultSet result = stmt.executeQuery();
 			while (result.next()) 
 			{
-				Album album = new Album(result.getInt("id"),result.getString("nomAlbum"),result.getString("detail"),result.getString("portee"));
+				Album album = new Album(result.getInt("id"),result.getString("nomAlbum"),result.getString("detail"),result.getString("portee"),result.getInt("categorie"));
 				List_album.add(album);
 			}
 		
@@ -77,4 +78,22 @@ public class AlbumDao {
 		}
 		return null;
 	}
+	public static boolean supprimer(int id) 
+	{
+		try
+		{
+			 
+		PreparedStatement stmt= conn.prepareStatement("delete from album where id=? ");
+		stmt.setInt(1,id);
+		stmt.executeUpdate(); 
+		stmt.close();
+		return true;
+		} 
+		catch(SQLException e){
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
+		
 }
