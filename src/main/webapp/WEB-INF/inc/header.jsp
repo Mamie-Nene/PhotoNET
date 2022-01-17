@@ -43,7 +43,8 @@
 									
 									<c:forEach items="${requestScope.categories }" var= "categorie">
 									<ul class="nav">
-										<li> <a><c:out value='${categorie.libelle}'/></a></li>
+										<li> <a href="<c:url value='/categorie?categorie=${categorie.id}'/>"> <c:out value='${categorie.libelle}'/></a></li>
+										
 										
 									</ul>
 									</c:forEach>
