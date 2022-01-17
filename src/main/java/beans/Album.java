@@ -2,7 +2,7 @@ package beans;
 
 public class Album {
 
-	private int id;
+	private int id, categorie;
 	private String nomAlbum,detail,portee;
 	
 
@@ -40,19 +40,29 @@ public class Album {
 		this.portee = portee;
 	}
 
-	public Album(int id, String nomAlbum, String detail, String portee) {
+	public Album(int id, String nomAlbum, String detail, String portee, int categorie) {
 		super();
 		this.id = id;
 		this.nomAlbum = nomAlbum;
 		this.detail = detail;
 		this.portee = portee;
+		this.categorie =  categorie;
 	}
 
-	public Album(String nomAlbum, String detail, String portee) {
+	public Album(String nomAlbum, String detail, String portee,int categorie) {
 		super();
 		this.nomAlbum = nomAlbum;
 		this.detail = detail;
 		this.portee = portee;
+		this.categorie =  categorie;
+	}
+
+	public int getCategorie() {
+		return categorie;
+	}
+
+	public void setCategorie(int categorie) {
+		this.categorie = categorie;
 	}
 
 	
