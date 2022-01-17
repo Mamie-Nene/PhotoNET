@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet Filter implementation class AuthenticationFilter
  */
-@WebFilter({"/list","/addUser","/deleteUser","/updateUser","/uploadImg"})
+@WebFilter({"/Albums","/AddAlbum","/deleteAlbum","/uploadImg","/displayImg","/gererUser","/addUser","/deleteUser","/updateUser"})
 public class AuthenticationFilter implements Filter {
 
     public AuthenticationFilter() {
