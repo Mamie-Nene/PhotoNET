@@ -71,6 +71,7 @@ public class CategorieDao
 		
 	}
 	
+	
 	public static boolean supprimer(int id) {
 		try
 		{	 

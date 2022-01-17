@@ -43,33 +43,7 @@ public class ImgDao {
             inputStream = filePart.getInputStream();
             
         }
-//		String filepath = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-//		String filename = filepath.substring(filepath.lastIndexOf(' '), filepath.length() );
-//		System.out.println(filename);
-//		String uploadPath = "/images/"+filename.strip();
-//		try
-//		{
-////			File file = new File(uploadPath);
-////			file.getParentFile().mkdirs();
-////			file.createNewFile();
-////			System.out.println(file);
-//			
-//		FileOutputStream fs = new FileOutputStream(uploadPath);
-//			
-//			inputStream = filePart.getInputStream();
-//			
-//			byte[] data = new byte[inputStream.available()];
-//			inputStream.read(data);
-//			fs.write(data);
-//			
-//			fs.close();
-//			return true;
-//		} catch(Exception e)
-//		{
-//			e.printStackTrace();
-//			return false;
-//		}
-//		
+		
 		try 
 		{
 	        // constructs SQL statement
@@ -144,6 +118,68 @@ public class ImgDao {
 		outputStream.close();
 		
 		return base64Image;
-	}
+	} 
+		public static ArrayList<Image> ListAllImg() throws IOException 
+		{
+			ArrayList<Image> List_image = new ArrayList<Image>() ;
+			try 
+			{
+		        // constructs SQL statement
+		        String sql = "SELECT * FROM photo  ";
+		        PreparedStatement statement = conn.prepareStatement(sql);
+		       
+		        ResultSet result = statement.executeQuery();
+				while (result.next()) 
+				{
+					Image image = new Image(result.getInt("id"),result.getInt("hauteur"),result.getInt("largeur"),result.getString("titre"),result.getString("description"),result.getString("motscles"),ImgDao.getImage(result.getBlob("img").getBinaryStream()));
+					
+					List_image.add(image);
+				}
+
+		    } catch (SQLException ex) 
+			{
+		        
+		        ex.printStackTrace();
+
+		    }
+//			images = (ArrayList<Image>) List_image.clone();
+			
+			return List_image;
+			
+		}
+		public static ArrayList<Image> ListeImgByCategorie(int categorie) throws IOException 
+		{
+			Album album = null;
+			ArrayList<Image> List_image = new ArrayList<Image>() ;
+			try 
+			{
+		        // constructs SQL statement
+				int cat= album.getCategorie();
+				String sql1 = "SELECT * FROM album WHERE categorie  = ? ";
+				PreparedStatement statement = conn.prepareStatement(sql1);
+		        statement.setInt(1, cat);
+		        ArrayList<Album> List_album = new ArrayList<Album>() ;
+		        String sql = "SELECT * FROM photo WHERE album  = sql1 ";
+		        PreparedStatement statement1 = conn.prepareStatement(sql);
+		        statement.setInt(1, cat);
+		        ResultSet result = statement.executeQuery();
+				while (result.next()) 
+				{
+					Image image = new Image(result.getInt("id"),result.getInt("hauteur"),result.getInt("largeur"),result.getString("titre"),result.getString("description"),result.getString("motscles"),ImgDao.getImage(result.getBlob("img").getBinaryStream()));
+					
+					List_image.add(image);
+				}
+
+		    } catch (SQLException ex) 
+			{
+		        
+		        ex.printStackTrace();
+
+		    }
+//			images = (ArrayList<Image>) List_image.clone();
+			
+			return List_image;
+			
+		}
 	
 }

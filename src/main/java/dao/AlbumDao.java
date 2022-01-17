@@ -78,6 +78,16 @@ public class AlbumDao {
 		}
 		return null;
 	}
+	public static Album getAlbumByCategorie(int categorie) {
+		for(Album album : albums) 
+		{
+			if(album.getCategorie() == categorie)
+			{
+				return album;
+			}
+		}
+		return null;
+	}
 	public static boolean supprimer(int id) 
 	{
 		try
